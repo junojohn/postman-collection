@@ -1,0 +1,5111 @@
+{
+	"info": {
+		"_postman_id": "6985dab4-1115-41e8-8832-ca71bfe8a752",
+		"name": "Seq_ind_tot_fam_tot_expR3_singVsmultiMagi",
+		"description": "This collection has individual total  primary and spouse, family total primary and spouse and LTC primary and spouse.\r\nwe ae using the output(total ABD,ABCD,ABFD,ABGD & ABND) from indivdual total and family total and calling it in the expense present value and fund with investments(get savings).\r\n LTC output(adultcare, home care,assisted care and nursing care) also we are calling in expense present value to project the expense.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "individualTotalExpenseR3",
+			"item": [
+				{
+					"name": "ind_tot_exp_R3",
+					"item": [
+						{
+							"name": "individualTotalExpenseR3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1852bd58-ddb0-44c5-b66f-31bb5c567fed",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"// calculating total ABD",
+											"var total_ABD = 0;",
+											"var pv_expenses_ABD = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].totalABD + data.individualTotalExpenses[i].totalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses_ABD += year_expense;",
+											"    total_ABD += expense;",
+											"",
+											"}",
+											"pv_expenses_ABD += ']';",
+											"console.log(\"ind_tot_pv_ABD: \" + total_ABD);",
+											"postman.setEnvironmentVariable(\"ind_tot_exp_ABD\", pv_expenses_ABD);",
+											"",
+											"// calculating total ABCD",
+											"var total_ABCD = 0;",
+											"var pv_expenses_ABCD = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].totalABCD + data.individualTotalExpenses[i].totalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses_ABCD += year_expense;",
+											"    total_ABCD += expense;",
+											"",
+											"}",
+											"pv_expenses_ABCD += ']';",
+											"console.log(\"ind_tot_pv_ABCD: \" + total_ABCD);",
+											"postman.setEnvironmentVariable(\"ind_tot_exp_ABCD\", pv_expenses_ABCD);",
+											"",
+											"// calculating total ABFD",
+											"var total_ABFD = 0;",
+											"var pv_expenses_ABFD = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].totalABFD + data.individualTotalExpenses[i].totalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses_ABFD += year_expense;",
+											"    total_ABFD += expense;",
+											"",
+											"}",
+											"pv_expenses_ABFD += ']';",
+											"console.log(\"ind_tot_pv_ABFD: \" + total_ABFD);",
+											"postman.setEnvironmentVariable(\"ind_tot_exp_ABFD\", pv_expenses_ABFD);",
+											"",
+											"// calculating total ABGD",
+											"var total_ABGD = 0;",
+											"var pv_expenses_ABGD = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].totalABGD + data.individualTotalExpenses[i].totalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses_ABGD += year_expense;",
+											"    total_ABGD += expense;",
+											"",
+											"}",
+											"pv_expenses_ABGD += ']';",
+											"console.log(\"ind_tot_pv_ABGD: \" + total_ABGD);",
+											"postman.setEnvironmentVariable(\"ind_tot_exp_ABGD\", pv_expenses_ABGD);",
+											"",
+											"// calculating total ABND",
+											"var total_ABND = 0;",
+											"var pv_expenses_ABND = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].totalABND + data.individualTotalExpenses[i].totalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses_ABND += year_expense;",
+											"    total_ABND += expense;",
+											"",
+											"}",
+											"pv_expenses_ABND += ']';",
+											"console.log(\"ind_tot_pv_ABND: \" + total_ABND);",
+											"postman.setEnvironmentVariable(\"ind_tot_exp_ABND\", pv_expenses_ABND);",
+											"",
+											"// defining age",
+											"var p = postman.getGlobalVariable(\"primaryBirthDate\");",
+											"var parts = p.split('-');",
+											"var month = Number(parts[0]);",
+											"var year = Number(parts[1]);",
+											"",
+											"var current_date = new Date();",
+											"/*console.log(current_date.getFullYear());",
+											"console.log(current_date.getMonth());",
+											"console.log(current_date);*/",
+											"var age = current_date.getFullYear() - year;",
+											"if (current_date.getMonth() < month) {",
+											"    age -= 1;",
+											"}",
+											"",
+											"// calculating getsavingsABD",
+											"var savings_ABD = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].totalABD + data.individualTotalExpenses[i].totalPreMedicareCost);",
+											"    var year_expense = '{\"year\":' + year + ', \"expenses\":' + expense + ', \"expenses_type\":\"Post-Retirement\" }';",
+											"    console.log(\"ind_getSav_ABD: \" + year_expense);",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    savings_ABD += year_expense;",
+											"",
+											"}",
+											"savings_ABD += ']';",
+											"//console.log(\"ind_getSavingsABD: \" + savings_ABD);",
+											"postman.setEnvironmentVariable(\"ind_getSavings_ABD\", savings_ABD);",
+											"",
+											"",
+											"",
+											"// calculating getsavingsABCD",
+											"var savings_ABCD = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].totalABCD + data.individualTotalExpenses[i].totalPreMedicareCost);",
+											"    var year_expense = '{\"year\":' + year + ', \"expenses\":' + expense + ', \"expenses_type\": \"Post-Retirement\" }';",
+											"    console.log(\"ind_getSav_ABCD: \" + year_expense);",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    savings_ABCD += year_expense;",
+											"",
+											"}",
+											"savings_ABCD += ']';",
+											"//console.log(\"getSavingsABCD: \" + savings_ABCD);",
+											"postman.setEnvironmentVariable(\"ind_getSavings_ABCD\", savings_ABCD);",
+											"",
+											"// calculating getsavings ABFD",
+											"var savings_ABFD = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].totalABFD + data.individualTotalExpenses[i].totalPreMedicareCost);",
+											"    var year_expense = '{\"year\":' + year + ', \"expenses\":' + expense + ', \"expenses_type\": \"Post-Retirement\" }';",
+											"    console.log(\"ind_getSav_ABFD: \" + year_expense);",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    savings_ABFD += year_expense;",
+											"",
+											"}",
+											"savings_ABFD += ']';",
+											"//console.log(\"getSavingsABFD: \" + savings_ABFD);",
+											"postman.setEnvironmentVariable(\"ind_getSavings_ABFD\", savings_ABFD);",
+											"",
+											"// calculating getsavings ABGD",
+											"var savings_ABGD = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].totalABGD + data.individualTotalExpenses[i].totalPreMedicareCost);",
+											"    var year_expense = '{\"year\":' + year + ', \"expenses\":' + expense + ', \"expenses_type\": \"Post-Retirement\" }';",
+											"    console.log(\"ind_getSav_ABGD: \" + year_expense);",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    savings_ABGD += year_expense;",
+											"",
+											"}",
+											"savings_ABGD += ']';",
+											"//console.log(\"getSavingsABGD: \" + savings_ABGD);",
+											"postman.setEnvironmentVariable(\"ind_getSavings_ABGD\", savings_ABGD);",
+											"",
+											"// calculating getsavings ABND",
+											"var savings_ABND = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].totalABND + data.individualTotalExpenses[i].totalPreMedicareCost);",
+											"    var year_expense = '{\"year\":' + year + ', \"expenses\":' + expense + ', \"expenses_type\": \"Post-Retirement\" }';",
+											"    console.log(\"ind_getSav_ABND: \" + year_expense);",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    savings_ABND += year_expense;",
+											"",
+											"}",
+											"savings_ABND += ']';",
+											"//console.log(\"getSavingsABND: \" + savings_ABND);",
+											"postman.setEnvironmentVariable(\"ind_getSavings_ABND\", savings_ABND);",
+											"",
+											"/*script for 'from year' and 'to year'*/",
+											"pm.globals.set(\"from_year\", data.individualTotalExpenses[0].year);",
+											"pm.globals.set(\"to_year\", data.individualTotalExpenses[data.individualTotalExpenses.length - 1].year);",
+											"",
+											"// calculating partB_partD_surcharge",
+											"var total_surcharge = 0;",
+											"var pv_expenses_surcharge = '[';",
+											"for (var i = 0; i < data.individualTotalExpenses.length; i++) {",
+											"    var year = data.individualTotalExpenses[i].year;",
+											"    var expense = (data.individualTotalExpenses[i].partBPremiumSurcharge + data.individualTotalExpenses[i].partDPremiumSurcharge);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.individualTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses_surcharge += year_expense;",
+											"    total_surcharge += expense;",
+											"",
+											"}",
+											"pv_expenses_surcharge += ']';",
+											"console.log(\"ind_tot_pv_surcharge: \" + total_surcharge);",
+											"postman.setEnvironmentVariable(\"ind_tot_exp_surcharge\", pv_expenses_surcharge);",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e89cb2af-f439-4b92-a6c7-93796ef0e770",
+										"exec": [
+											"//setting the global variables for primary and spouse",
+											"pm.globals.set(\"primaryBirthDate\", '08-1957');",
+											"pm.globals.set(\"primaryRetirementYear\", '08-2021');",
+											"pm.globals.set(\"primaryLifeExpectancy\", '75');",
+											"//pm.globals.set(\"primaryTaxFilingStatus\", 'FILING_individually');",
+											"pm.globals.set(\"primaryHealthGrade\", 1);",
+											"pm.globals.set(\"primaryStateName\", 'Colorado');",
+											"pm.globals.set(\"primaryPlanType\", 'silver');",
+											"pm.globals.set(\"primaryDentalHealthGrade\", 1);",
+											"pm.globals.set(\"primaryRetirementState\", 'Colorado');",
+											"// This flag is true for multimagi and false for single magi",
+											"pm.globals.set(\"primarySingleVsMultipleMagi\", 'true');",
+											"// This flag is true for dollar amount and false for magitier",
+											"pm.globals.set(\"primaryMagiTierVsDollarAmount\", 'true');",
+											"pm.globals.set(\"primaryMagiTier\", 1);",
+											"pm.globals.set(\"primaryMagiDollarAmount\", 80000);",
+											"pm.globals.set(\"primaryZipcode\", 80129);",
+											"pm.globals.set(\"primaryBoughtPlanA\", 'false');",
+											"pm.globals.set(\"primaryReserveDaysUsed\", 0);",
+											"pm.globals.set(\"primaryDental\", 'false');",
+											"pm.globals.set(\"primaryTobacco\", 'false');",
+											"pm.globals.set(\"primaryFullYearDataForLifeExpectancyYear\", 'false');",
+											"pm.globals.set(\"spouseIncluded\", 'true');",
+											"pm.globals.set(\"spouseBirthDate\", '08-1957');",
+											"pm.globals.set(\"spouseRetirementYear\", '08-2021');",
+											"pm.globals.set(\"spouseLifeExpectancy\", '75');",
+											"pm.globals.set(\"spouseSingleVsMultipleMagi\", 'true');",
+											"pm.globals.set(\"spouseMagiTierVsDollarAmount\", 'true');",
+											"pm.globals.set(\"spouseMagiTier\", '1');",
+											"//pm.globals.set(\"spouseTaxFilingStatus\", 'FILING_individually');",
+											"pm.globals.set(\"spouseMagiDollarAmount\", 80000);",
+											"pm.globals.set(\"spouseHealthGrade\", 1);",
+											"pm.globals.set(\"spouseStateName\", 'Colorado');",
+											"pm.globals.set(\"spouseZipcode\", 80129);",
+											"pm.globals.set(\"spouseBoughtPlanA\", 'false');",
+											"pm.globals.set(\"spouseReserveDaysUsed\", 0);",
+											"pm.globals.set(\"spouseDental\", 'false');",
+											"pm.globals.set(\"spouseDentalHealthGrade\", '1');",
+											"pm.globals.set(\"spouseRetirementState\", 'Colorado');",
+											"pm.globals.set(\"spousePlanType\", 'silver');",
+											"pm.globals.set(\"spouseTobacco\", 'false');",
+											"pm.globals.set(\"spouseFullYearDataForLifeExpectancyYear\", 'false');",
+											"",
+											"// map of primary taxfilingstatus, retirement to life expectancy year, magidollar amt;",
+											"var primaryMagiDollarAmounts = new Map([",
+											"    [2020, 80000.0],",
+											"    [2021, 100000.0],",
+											"    [2022, 50000.0],",
+											"    [2023, 120000.0],",
+											"    [2024, 400000.0],",
+											"    [2025, 550000.0],",
+											"    [2026, 80000.0],",
+											"    [2027, 100000.0],",
+											"    [2028, 50000.0],",
+											"    [2029, 120000.0],",
+											"    [2030, 400000.0],",
+											"    [2031, 550000.0],",
+											"    [2032, 60000.0]]);",
+											"// map of primary and spouse taxfilingstatus",
+											"var taxFilingStatuses = new Map([",
+											"    [2020, \"FILING_INDIVIDUALLY\"],",
+											"    [2021, \"FILING_INDIVIDUALLY\"],",
+											"    [2022, \"FILING_INDIVIDUALLY\"],",
+											"    [2023, \"FILING_INDIVIDUALLY\"],",
+											"    [2024, \"FILING_INDIVIDUALLY\"],",
+											"    [2025, \"FILING_INDIVIDUALLY\"],",
+											"    [2026, \"FILING_INDIVIDUALLY\"],",
+											"    [2027, \"FILING_INDIVIDUALLY\"],",
+											"    [2028, \"MARRIED_FILING_JOINTLY\"],",
+											"    [2029, \"MARRIED_FILING_JOINTLY\"],",
+											"    [2030, \"MARRIED_FILING_JOINTLY\"],",
+											"    [2031, \"FILING_INDIVIDUALLY\"],",
+											"    [2032, \"MARRIED_FILING_JOINTLY\"]]);",
+											"// map of spouse magidollaramt, retirement to life expectancy year",
+											"var spouseMagiDollarAmounts = new Map([",
+											"    [2020, 80000.0],",
+											"    [2021, 100000.0],",
+											"    [2022, 50000.0],",
+											"    [2023, 120000.0],",
+											"    [2024, 400000.0],",
+											"    [2025, 550000.0],",
+											"    [2026, 80000.0],",
+											"    [2027, 100000.0],",
+											"    [2028, 50000.0],",
+											"    [2029, 120000.0],",
+											"    [2030, 400000.0],",
+											"    [2031, 550000.0],",
+											"    [2032, 60000.0]]);",
+											"",
+											"//setting the gobal variables for expense present value",
+											"pm.globals.set(\"pvAsOnYear3\", '0');",
+											"pm.globals.set(\"discount\", '6');",
+											"pm.globals.set(\"rateOfReturn1\", '2');",
+											"pm.globals.set(\"rateOfReturn2\", '4');",
+											"pm.globals.set(\"rateOfReturn3\", '6');",
+											"pm.globals.set(\"rateOfReturn4\", '8');",
+											"",
+											"//setting global variable for savings",
+											"pm.globals.set(\"initalSavings\", 100000);",
+											"pm.globals.set(\"duration\", 30);",
+											"pm.globals.set(\"ror\", 5.5);",
+											"//pm.globals.set(\"term\",'[]');",
+											"pm.globals.set(\"levelOfProtection\", 100);",
+											"",
+											"//globalvariables for LTCR4",
+											"pm.globals.set(\"transactionTypeFlag\", 'false');",
+											"pm.globals.set(\"region\", 'Douglas');",
+											"/*var x = pm.globals.get(\"primaryHealthGrade\");",
+											"pm.globals.set(\"healthProfile\", x);*/",
+											"pm.globals.set(\"gender\", 'M');",
+											"pm.globals.set(\"currentLifeStyleExpenses\", 1);",
+											"pm.globals.set(\"numberOfAdultDayHealthCareLTCYears\", 2);",
+											"pm.globals.set(\"numberOfHomeCareLTCYears\", 2);",
+											"pm.globals.set(\"numberOfAssistedCareLTCYears\", 2);",
+											"pm.globals.set(\"numberOfNursingCareLTCYears\", 2);",
+											"",
+											"// script for calculating primary_age from birthdate and current year",
+											"var p = postman.getGlobalVariable(\"primaryBirthDate\");",
+											"var parts = p.split('-');",
+											"var primary_birthmonth = Number(parts[0]);",
+											"var primary_birthyear = Number(parts[1]);",
+											"var current_date = new Date();",
+											"console.log(current_date);",
+											"var primary_age = current_date.getFullYear() - primary_birthyear;",
+											"if (current_date.getMonth() < primary_birthmonth) {",
+											"    primary_age -= 1;",
+											"}",
+											"//console.log(primary_age);",
+											"pm.globals.set(\"primary_age\", primary_age);",
+											"pm.globals.set(\"current_year\", current_date.getFullYear());",
+											"",
+											"/*if single vs multi magi is false then show single magi else show multi magi.",
+											"show \"{{yearWiseMagiDetailList}}\" from medicare eligible year to life expectancy.*/",
+											"",
+											"// creating a list of adjusted gross income for each year from user input.",
+											"// This is for the multimagi case.",
+											"var yearWiseMagiDetailList = '[';",
+											"var medi_eligibility_year = primary_birthyear + 65;",
+											"var life_expectancy = Number(pm.globals.get(\"primaryLifeExpectancy\"));",
+											"var life_expectancy_year = primary_birthyear + life_expectancy;",
+											"for (var year = medi_eligibility_year; year <= life_expectancy_year; year++) {",
+											"    var magiDetailList = \"\";",
+											"    if (postman.getGlobalVariable(\"primaryMagiTierVsDollarAmount\") == 'false') {",
+											"        magiDetailList = '{ \"year\": ' + year + ', \"magiTier\": ' + postman.getGlobalVariable(\"primaryMagiTier\") + '}';",
+											"    }",
+											"    else {",
+											"        magiDetailList = '{ \"year\": ' + year + ', \"taxFilingStatus\": \"' + taxFilingStatuses.get(year) + '\", \"magiDollarAmount\": ' + primaryMagiDollarAmounts.get(year) + '}';",
+											"    }",
+											"",
+											"    if (year < life_expectancy_year) {",
+											"        magiDetailList += ',';",
+											"    }",
+											"    yearWiseMagiDetailList += magiDetailList;",
+											"}",
+											"",
+											"yearWiseMagiDetailList += ']';",
+											"//console.log(yearWiseMagiDetailList);",
+											"",
+											"//script for primary single vs multimagi",
+											"",
+											"if (postman.getGlobalVariable(\"primarySingleVsMultipleMagi\") == 'false') {",
+											"    pm.globals.set(\"primaryYearWiseMagiDetailList\", '[]');",
+											"} else {",
+											"    pm.globals.set(\"primaryYearWiseMagiDetailList\", yearWiseMagiDetailList);",
+											"}",
+											"",
+											"//script for calculating spouse age",
+											"p = postman.getGlobalVariable(\"spouseBirthDate\");",
+											"parts = p.split('-');",
+											"var spouse_birthmonth = Number(parts[0]);",
+											"var spouse_birthyear = Number(parts[1]);",
+											"var current_date = new Date();",
+											"//console.log(current_date);",
+											"var spouse_age = current_date.getFullYear() - spouse_birthyear;",
+											"if (current_date.getMonth() < spouse_birthmonth) {",
+											"    spouse_age -= 1;",
+											"}",
+											"//console.log(spouse_age);",
+											"pm.globals.set(\"spouse_age\", spouse_age);",
+											"pm.globals.set(\"current_year\", current_date.getFullYear());",
+											"",
+											"// calculating spouse yearwisemagi detail list",
+											"var yearWiseMagiDetailList = '[';",
+											"var medi_eligibility_year = spouse_birthyear + 65;",
+											"var life_expectancy = Number(pm.globals.get(\"spouseLifeExpectancy\"));",
+											"var life_expectancy_year = spouse_birthyear + life_expectancy;",
+											"for (var year = medi_eligibility_year; year <= life_expectancy_year; year++) {",
+											"    var magiDetailList = \"\";",
+											"    if (postman.getGlobalVariable(\"spouseMagiTierVsDollarAmount\") == 'false') {",
+											"        magiDetailList = '{ \"year\": ' + year + ', \"magiTier\": ' + postman.getGlobalVariable(\"spouseMagiTier\") + '}';",
+											"    }",
+											"    else {",
+											"        magiDetailList = '{ \"year\": ' + year + ', \"taxFilingStatus\": \"' + taxFilingStatuses.get(year) + '\", \"magiDollarAmount\": ' + spouseMagiDollarAmounts.get(year) + '}';",
+											"    }",
+											"",
+											"    if (year < life_expectancy_year) {",
+											"        magiDetailList += ',';",
+											"    }",
+											"    yearWiseMagiDetailList += magiDetailList;",
+											"}",
+											"",
+											"yearWiseMagiDetailList += ']';",
+											"//console.log(yearWiseMagiDetailList);",
+											"// For single magi, spouseYearWiseMagiDetailList should be empty.",
+											"",
+											"if (postman.getGlobalVariable(\"spouseSingleVsMultipleMagi\") == 'false') {",
+											"    pm.globals.set(\"spouseYearWiseMagiDetailList\", '[]');",
+											"} else {",
+											"    pm.globals.set(\"spouseYearWiseMagiDetailList\", yearWiseMagiDetailList);",
+											"}",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"birthDate\": \"{{primaryBirthDate}}\",\n    \"retirementYear\": \"{{primaryRetirementYear}}\",\n    \"lifeExpectancy\": \"{{primaryLifeExpectancy}}\",\n    \"planType\": \"{{primaryPlanType}}\",\n    \"healthGrade\": {{primaryHealthGrade}},\n    \"stateName\": \"{{primaryStateName}}\",\n    \"retirementState\": \"{{primaryRetirementState}}\",\n    \"zipcode\":\"{{primaryZipcode}}\",\n    \"boughtPlanA\": \"{{primaryBoughtPlanA}}\",\n    \"fullYearDataForLifeExpectancyYear\": \"{{primaryFullYearDataForLifeExpectancyYear}}\",\n    \"reserveDaysUsed\": {{primaryReserveDaysUsed}},\n    \"dental\": \"{{primaryDental}}\",\n    \"dentalHealthGrade\": \"{{primaryDentalHealthGrade}}\",\n    \"tobacco\": \"{{primaryTobacco}}\",\n    \"singleVsMultipleMagi\": \"{{primarySingleVsMultipleMagi}}\",\n    \"magiTierVsDollarAmount\": \"{{primaryMagiTierVsDollarAmount}}\",\n    \"magiTier\": {{primaryMagiTier}},\n    \"taxFilingStatus\": \"{{primaryTaxFilingStatus}}\",\n    \"magiDollarAmount\": {{primaryMagiDollarAmount}},\n    \"yearWiseMagiDetailList\": {{primaryYearWiseMagiDetailList}}\n}\n",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/individualTotalExpensesR3",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"individualTotalExpensesR3"
+									]
+								},
+								"description": "This collection has individual total primary and spouse and family total expense API, expense present value, fund with investments(get savings), and LTC APIs.\r\nIn the pre-req, this test, sets global variables for all downstream APIs.\r\nIn the tests, we calculate totalABD,ABCD,ABFD,ABGD,ABND,partB and partD premium surcharges.\r\nWe also set 'from year' and 'to year'."
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ind_exp_PV_R3_pri",
+					"item": [
+						{
+							"name": "Ind_exp_PV_ABD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "09c13c4c-444f-4a98-9e04-ca8436aea14c",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_ABD}},\n  \"presentValueYears\": {\n    \"pvAsOnYear1\": {{current_year}},\n    \"pvAsOnYear2\": {{from_year}},\n    \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n    \"rateOfReturn1\": {{rateOfReturn1}},\n    \"rateOfReturn2\": {{rateOfReturn2}},\n    \"rateOfReturn3\": {{rateOfReturn3}},\n    \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_ABCD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "09c13c4c-444f-4a98-9e04-ca8436aea14c",
+										"exec": [
+											"//sequencing of individual total expenses outut to use the input for expense present value ",
+											"",
+											"/*console.log(data.individualTotalExpenses[0].totalABD);",
+											"console.log(data.individualTotalExpenses[0].totalPreMedicareCost);",
+											"",
+											"pm.collectionVariables.set(\"total_abd_0\", data.individualTotalExpenses[0].totalABD);",
+											"pm.collectionVariables.set(\"total_pre_medicare_cost_0\", data.individualTotalExpenses[0].totalPreMedicareCost);",
+											"",
+											"pm.collectionVariables.set(\"total_abd_1\", data.individualTotalExpenses[1].totalABD);",
+											"pm.collectionVariables.set(\"total_pre_medicare_cost_1\", data.individualTotalExpenses[1].totalPreMedicareCost);*/",
+											"",
+											"",
+											"",
+											"/*pm.collectionVariables.set(\"pv_expense0\", (data.individualTotalExpenses[0].totalABD) + (data.individualTotalExpenses[0].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense0\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense1\", (data.individualTotalExpenses[1].totalABD) + (data.individualTotalExpenses[1].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense1\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense2\", (data.individualTotalExpenses[2].totalABD) + (data.individualTotalExpenses[2].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense2\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense3\", (data.individualTotalExpenses[3].totalABD) + (data.individualTotalExpenses[3].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense3\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense4\", (data.individualTotalExpenses[4].totalABD) + (data.individualTotalExpenses[4].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense4\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense5\", (data.individualTotalExpenses[5].totalABD) + (data.individualTotalExpenses[5].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense5\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense6\", (data.individualTotalExpenses[6].totalABD) + (data.individualTotalExpenses[6].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense6\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense7\", (data.individualTotalExpenses[7].totalABD) + (data.individualTotalExpenses[7].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense7\"));*/"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_ABCD}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_ABFD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "09c13c4c-444f-4a98-9e04-ca8436aea14c",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_ABFD}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_ABGD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "09c13c4c-444f-4a98-9e04-ca8436aea14c",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_ABGD}},\n  \"presentValueYears\": {\n    \"pvAsOnYear1\": {{current_year}},\n    \"pvAsOnYear2\": {{from_year}},\n    \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n    \"rateOfReturn1\": {{rateOfReturn1}},\n    \"rateOfReturn2\": {{rateOfReturn2}},\n    \"rateOfReturn3\": {{rateOfReturn3}},\n    \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_ABND_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "09c13c4c-444f-4a98-9e04-ca8436aea14c",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_ABND}},\n  \"presentValueYears\": {\n    \"pvAsOnYear1\": {{current_year}},\n    \"pvAsOnYear2\": {{from_year}},\n    \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n    \"rateOfReturn1\": {{rateOfReturn1}},\n    \"rateOfReturn2\": {{rateOfReturn2}},\n    \"rateOfReturn3\": {{rateOfReturn3}},\n    \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_partB_partDsurchar_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "16167927-a34e-4733-a3ff-8d296fd655b6",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "57dbc5e1-8b3b-4a6c-804f-9d57e5f50012",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_surcharge}},\n  \"presentValueYears\": {\n    \"pvAsOnYear1\": {{current_year}},\n    \"pvAsOnYear2\": {{from_year}},\n    \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n    \"rateOfReturn1\": {{rateOfReturn1}},\n    \"rateOfReturn2\": {{rateOfReturn2}},\n    \"rateOfReturn3\": {{rateOfReturn3}},\n    \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_ABD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0b9bea56-7a9e-4e54-b29a-a0b1b44bbe11",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "456a8754-5b3e-4774-b0ae-0d0a6da13f1e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_ABD}},\n  \"presentValueYears\": {\n    \"pvAsOnYear1\": {{current_year}},\n    \"pvAsOnYear2\": {{from_year}},\n    \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n    \"rateOfReturn1\": {{rateOfReturn1}},\n    \"rateOfReturn2\": {{rateOfReturn2}},\n    \"rateOfReturn3\": {{rateOfReturn3}},\n    \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_ABCD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "98074881-95a8-4ed4-8440-b90b3b00cafe",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0ab7be1e-1eeb-44cf-8fe8-9a163bfe528c",
+										"exec": [
+											"//sequencing of individual total expenses outut to use the input for expense present value ",
+											"",
+											"/*console.log(data.individualTotalExpenses[0].totalABD);",
+											"console.log(data.individualTotalExpenses[0].totalPreMedicareCost);",
+											"",
+											"pm.collectionVariables.set(\"total_abd_0\", data.individualTotalExpenses[0].totalABD);",
+											"pm.collectionVariables.set(\"total_pre_medicare_cost_0\", data.individualTotalExpenses[0].totalPreMedicareCost);",
+											"",
+											"pm.collectionVariables.set(\"total_abd_1\", data.individualTotalExpenses[1].totalABD);",
+											"pm.collectionVariables.set(\"total_pre_medicare_cost_1\", data.individualTotalExpenses[1].totalPreMedicareCost);*/",
+											"",
+											"",
+											"",
+											"/*pm.collectionVariables.set(\"pv_expense0\", (data.individualTotalExpenses[0].totalABD) + (data.individualTotalExpenses[0].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense0\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense1\", (data.individualTotalExpenses[1].totalABD) + (data.individualTotalExpenses[1].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense1\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense2\", (data.individualTotalExpenses[2].totalABD) + (data.individualTotalExpenses[2].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense2\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense3\", (data.individualTotalExpenses[3].totalABD) + (data.individualTotalExpenses[3].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense3\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense4\", (data.individualTotalExpenses[4].totalABD) + (data.individualTotalExpenses[4].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense4\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense5\", (data.individualTotalExpenses[5].totalABD) + (data.individualTotalExpenses[5].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense5\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense6\", (data.individualTotalExpenses[6].totalABD) + (data.individualTotalExpenses[6].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense6\"));",
+											"",
+											"pm.collectionVariables.set(\"pv_expense7\", (data.individualTotalExpenses[7].totalABD) + (data.individualTotalExpenses[7].totalPreMedicareCost));",
+											"console.log(pm.collectionVariables.get(\"pv_expense7\"));*/"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_ABCD}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_ABFD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bec0771d-9092-414a-8712-4dc864fdeab4",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0e07eacb-8132-42ad-9d22-9f43ebc44057",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_ABFD}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_ABGD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "54a7a65e-12f7-4e0f-9380-16b166253cdb",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "cb64a11a-9f4e-48a7-869e-aa0a3b7f59fb",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_ABGD}},\n  \"presentValueYears\": {\n    \"pvAsOnYear1\": {{current_year}},\n    \"pvAsOnYear2\": {{from_year}},\n    \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n    \"rateOfReturn1\": {{rateOfReturn1}},\n    \"rateOfReturn2\": {{rateOfReturn2}},\n    \"rateOfReturn3\": {{rateOfReturn3}},\n    \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_ABND_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6cb3dff7-d6c5-40bc-864a-9b6c96074fbc",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "67071df5-c564-4459-8288-0ef90451fadc",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_ABND}},\n  \"presentValueYears\": {\n    \"pvAsOnYear1\": {{current_year}},\n    \"pvAsOnYear2\": {{from_year}},\n    \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n    \"rateOfReturn1\": {{rateOfReturn1}},\n    \"rateOfReturn2\": {{rateOfReturn2}},\n    \"rateOfReturn3\": {{rateOfReturn3}},\n    \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ind_exp_PV_partB_partD_surchar_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "773f6f05-f203-4a6f-aa8b-df2837563d0b",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "7673ccfb-6694-48ca-bc3c-6da76269c0cd",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{ind_tot_exp_surcharge}},\n  \"presentValueYears\": {\n    \"pvAsOnYear1\": {{current_year}},\n    \"pvAsOnYear2\": {{from_year}},\n    \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n    \"rateOfReturn1\": {{rateOfReturn1}},\n    \"rateOfReturn2\": {{rateOfReturn2}},\n    \"rateOfReturn3\": {{rateOfReturn3}},\n    \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ind_getSav_R3",
+					"item": [
+						{
+							"name": "ind_getSav_ABD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5c95de3-aaaa-463b-9cef-5eac03222969",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "de1b22d2-5ebc-4fd4-9480-bfffb8e90004",
+										"exec": [
+											"/* [\r",
+											"    {\r",
+											"      \"year\": 2051,\r",
+											"      \"expenses\": 52203,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2052,\r",
+											"      \"expenses\": 57822,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2053,\r",
+											"      \"expenses\": 56945,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2054,\r",
+											"      \"expenses\": 59499,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2055,\r",
+											"      \"expenses\": 62182,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2056,\r",
+											"      \"expenses\": 65006,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2057,\r",
+											"      \"expenses\": 68057,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2058,\r",
+											"      \"expenses\": 66126,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2059,\r",
+											"      \"expenses\": 95586,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2060,\r",
+											"      \"expenses\": 91775,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2061,\r",
+											"      \"expenses\": 80358,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2062,\r",
+											"      \"expenses\": 82678,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2063,\r",
+											"      \"expenses\": 83868,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2064,\r",
+											"      \"expenses\": 93985,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2065,\r",
+											"      \"expenses\": 98467,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2066,\r",
+											"      \"expenses\": 103185,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2067,\r",
+											"      \"expenses\": 108267,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2068,\r",
+											"      \"expenses\": 113505,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2069,\r",
+											"      \"expenses\": 119025,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2070,\r",
+											"      \"expenses\": 124841,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    }\r",
+											"  ],*/"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\":{{ind_getSavings_ABD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\":{{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ind_getSav_ABCD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5c95de3-aaaa-463b-9cef-5eac03222969",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "de1b22d2-5ebc-4fd4-9480-bfffb8e90004",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\":{{ind_getSavings_ABCD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ind_getSav_ABFD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5c95de3-aaaa-463b-9cef-5eac03222969",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "de1b22d2-5ebc-4fd4-9480-bfffb8e90004",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\":{{ind_getSavings_ABFD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ind_getSav_ABGD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5c95de3-aaaa-463b-9cef-5eac03222969",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "de1b22d2-5ebc-4fd4-9480-bfffb8e90004",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\":{{ind_getSavings_ABGD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ind_getSav_ABND_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5c95de3-aaaa-463b-9cef-5eac03222969",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "de1b22d2-5ebc-4fd4-9480-bfffb8e90004",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\":{{ind_getSavings_ABND}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ind_getSav_ABD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2fdab219-e502-4e46-bd38-e958a4fa487c",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "05cad52c-4d60-4386-a7ad-1ebe017e7bee",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\":{{ind_getSavings_ABD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\":{{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ind_getSav_ABCD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5aba5d82-36fb-400a-af44-0ce1d744ae61",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "98684936-0ca9-48d3-b514-50e939d7e60e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\":{{ind_getSavings_ABCD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ind_getSav_ABFD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "df1cac6b-5c34-4e65-aabf-37715497bc79",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e69a1a69-27d1-48ff-80b1-bc7343516e41",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\":{{ind_getSavings_ABFD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ind_getSav_ABGD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5e0cf2de-542b-4b1b-a57f-03469d9fc4cd",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "38673b30-464b-4215-b6ce-e6f87374fee8",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\":{{ind_getSavings_ABGD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ind_getSav_ABND_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8101aa32-6a00-422e-a7b8-4afc753e5f00",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8c6e754a-e936-4fdc-a026-a56268034bd5",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\":{{ind_getSavings_ABND}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ind_LTC_R4",
+					"item": [
+						{
+							"name": "ind_LTC_R4_pri",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "679724a2-7ab9-4c7a-b4f8-946fc501a3ab",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "e5c076f3-2eee-41f9-88a1-fea2587b9d11",
+										"exec": [
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"",
+											"//script for LTC Variables primary",
+											"pm.globals.set(\"primary_ac_from_year\", data.futureAdultDayHealthCareExpenseList[0].year);",
+											"pm.globals.set(\"primary_ac_to_year\", data.futureAdultDayHealthCareExpenseList[data.futureAdultDayHealthCareExpenseList.length - 1].year);",
+											"pm.globals.set(\"primary_hc_from_year\", data.futureHomeCareExpenseList[0].year);",
+											"pm.globals.set(\"primary_hc_to_year\", data.futureHomeCareExpenseList[data.futureHomeCareExpenseList.length - 1].year);",
+											"",
+											"pm.globals.set(\"primary_sc_from_year\", data.futureAssistedCareExpensesList[0].year);",
+											"pm.globals.set(\"primary_sc_to_year\", data.futureAssistedCareExpensesList[data.futureAssistedCareExpensesList.length - 1].year);",
+											"",
+											"pm.globals.set(\"primary_nc_from_year\", data.futureNursingCareExpensesList[0].year);",
+											"pm.globals.set(\"primary_nc_to_year\", data.futureNursingCareExpensesList[data.futureNursingCareExpensesList.length - 1].year);",
+											"",
+											"",
+											"//script for LTC Variables spouse",
+											"pm.globals.set(\"spouse_ac_from_year\", data.futureAdultDayHealthCareExpenseList[0].year);",
+											"pm.globals.set(\"spouse_ac_to_year\", data.futureAdultDayHealthCareExpenseList[data.futureAdultDayHealthCareExpenseList.length - 1].year);",
+											"pm.globals.set(\"spouse_hc_from_year\", data.futureHomeCareExpenseList[0].year);",
+											"pm.globals.set(\"spouse_hc_to_year\", data.futureHomeCareExpenseList[data.futureHomeCareExpenseList.length - 1].year);",
+											"",
+											"pm.globals.set(\"spouse_sc_from_year\", data.futureAssistedCareExpensesList[0].year);",
+											"pm.globals.set(\"spouse_sc_to_year\", data.futureAssistedCareExpensesList[data.futureAssistedCareExpensesList.length - 1].year);",
+											"",
+											"pm.globals.set(\"spouse_nc_from_year\", data.futureNursingCareExpensesList[0].year);",
+											"pm.globals.set(\"spouse_nc_to_year\", data.futureNursingCareExpensesList[data.futureNursingCareExpensesList.length - 1].year);",
+											"",
+											"//script for adultcare,homecare, asiistedcare,nursingcarre PVexpenses",
+											"postman.setEnvironmentVariable(\"pv_expenses_LTC_adultcare\", JSON.stringify(data.futureAdultDayHealthCareExpenseList));",
+											"postman.setEnvironmentVariable(\"pv_expenses_LTC_homecare\", JSON.stringify(data.futureHomeCareExpenseList));",
+											"postman.setEnvironmentVariable(\"pv_expenses_LTC_assistedcare\", JSON.stringify(data.futureAssistedCareExpensesList));",
+											"postman.setEnvironmentVariable(\"pv_expenses_LTC_nursingcare\", JSON.stringify(data.futureNursingCareExpensesList));",
+											"",
+											"",
+											"/*var pv_expenses",
+											"for (var i = 0; i < data.futureAdultDayHealthCareExpenseList.length; i++) {",
+											"    var year = data.futureAdultDayHealthCareExpenseList[i].year;",
+											"    var expense = data.futureAdultDayHealthCareExpenseList[i].expense;",
+											"    var year_expense = \"year \"  + year + \",expense \" + expense;",
+											"    console.log(year_expense);",
+											"",
+											"    pv_expenses_LTC += year_expense",
+											"",
+											"",
+											"}*/",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic QWR2aWNlbnRGUFNlcnZpY2VVc2VyOkFkdmljZW50UEBzNXcwcmQ="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \n\"age\": {{primary_age}},\n\"transactionTypeFlag\":\"{{transactionTypeFlag}}\",\n\"zipcode\":{{primaryZipcode}},\n\"state\":\"{{primaryStateName}}\",\n \"region\": \"{{region}}\",\n\"pvAsOfYear\": {{from_year}},\n\"healthProfile\": {{primaryHealthGrade}},\n\"gender\": \"{{gender}}\",\n\"lifeExpectancy\": {{primaryLifeExpectancy}},\n\"currentLifeStyleExpenses\": {{currentLifeStyleExpenses}},\n\n\"numberOfAdultDayHealthCareLTCYears\":{{numberOfAdultDayHealthCareLTCYears}},\n\"numberOfHomeCareLTCYears\": {{numberOfHomeCareLTCYears}},\n\"numberOfAssistedCareLTCYears\":{{numberOfAssistedCareLTCYears}},\n\"numberOfNursingCareLTCYears\":{{numberOfNursingCareLTCYears}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/longTermCareR4",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"longTermCareR4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "exp_PV_adultcare_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{primary_ac_from_year}},\n  \"toYear\": {{primary_ac_to_year}},\n  \"expenses\": {{pv_expenses_LTC_adultcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "exp_PV_homecare_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{primary_hc_from_year}},\n  \"toYear\": {{primary_hc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_homecare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "exp_PV_assistedcare_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{primary_sc_from_year}},\n  \"toYear\": {{primary_sc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_assistedcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "exp_PV_nursingcare_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8459ab43-aad3-4e13-af6f-280b2be3c3d0",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{primary_nc_from_year}},\n  \"toYear\": {{primary_nc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_nursingcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "exp_PV_adultcare_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d1219391-25a7-48f4-b26a-495969c84304",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{spouse_ac_from_year}},\n  \"toYear\": {{spouse_ac_to_year}},\n  \"expenses\": {{pv_expenses_LTC_adultcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "exp_PV_homecare_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e42e0030-4fe6-47f6-9afc-e9feb208bd3b",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{spouse_hc_from_year}},\n  \"toYear\": {{spouse_hc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_homecare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "exp_PV_assistedcare_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c8bbff40-a452-41dc-a532-aee9e672328c",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{spouse_sc_from_year}},\n  \"toYear\": {{spouse_sc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_assistedcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "exp_PV_nursingcare_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ba9025d-67a9-4122-bc40-8f803bb311f6",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{spouse_nc_from_year}},\n  \"toYear\": {{spouse_nc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_nursingcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "familyTotalexpenseR3",
+			"item": [
+				{
+					"name": "familyTotalExpenseR3",
+					"item": [
+						{
+							"name": "familyTotalExpenseR3",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e75f077d-b8eb-41c0-b90c-292406df0b41",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "b75130dc-bde1-4a05-933b-67789bef16f0",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"// calculating fam Total ABD",
+											"var total_ABD = 0;",
+											"var data = JSON.parse(responseBody);",
+											"var pv_expenses = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].totalABD + data.familyTotalExpenses[i].primaryTotalPreMedicareCost + data.familyTotalExpenses[i].spouseTotalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses += year_expense;",
+											"    total_ABD += expense;",
+											"",
+											"}",
+											"pv_expenses += ']';",
+											"console.log(\"fam_tot_pv_ABD: \" + total_ABD);",
+											"postman.setEnvironmentVariable(\"fam_tot_expense_ABD\", pv_expenses);",
+											"",
+											"// calculating famTotalABCD",
+											"var total_ABCD = 0;",
+											"var pv_expenses = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].totalABCD + data.familyTotalExpenses[i].primaryTotalPreMedicareCost / 2 + data.familyTotalExpenses[i].spouseTotalPreMedicareCost / 2);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses += year_expense;",
+											"    total_ABCD += expense;",
+											"}",
+											"pv_expenses += ']';",
+											"console.log(\"fam_tot_pv_ABCD: \" + total_ABCD);",
+											"postman.setEnvironmentVariable(\"fam_tot_expense_ABCD\", pv_expenses);",
+											"",
+											"// calculating famTotalABFD",
+											"var total_ABFD = 0;",
+											"var pv_expenses = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].totalABFD + data.familyTotalExpenses[i].primaryTotalPreMedicareCost + data.familyTotalExpenses[i].spouseTotalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses += year_expense;",
+											"    total_ABFD += expense;",
+											"}",
+											"pv_expenses += ']';",
+											"console.log(\"fam_tot_pv_ABFD: \" + total_ABFD);",
+											"postman.setEnvironmentVariable(\"fam_tot_expense_ABFD\", pv_expenses);",
+											"",
+											"//calculating famTotalABGD",
+											"var total_ABGD = 0;",
+											"var pv_expenses = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].totalABGD +",
+											"        data.familyTotalExpenses[i].primaryTotalPreMedicareCost +",
+											"        data.familyTotalExpenses[i].spouseTotalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses += year_expense;",
+											"    total_ABGD += expense;",
+											"}",
+											"pv_expenses += ']';",
+											"console.log(\"fam_tot_pv_ABGD: \" + total_ABGD);",
+											"postman.setEnvironmentVariable(\"fam_tot_expense_ABGD\", pv_expenses);",
+											"",
+											"//calculating famTotalABND",
+											"var total_ABND = 0;",
+											"var pv_expenses = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].totalABND +",
+											"        data.familyTotalExpenses[i].primaryTotalPreMedicareCost +",
+											"        data.familyTotalExpenses[i].spouseTotalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_expenses += year_expense;",
+											"    total_ABND += expense;",
+											"}",
+											"pv_expenses += ']';",
+											"console.log(\"fam_tot_pv_ABND: \" + total_ABND);",
+											"postman.setEnvironmentVariable(\"fam_tot_expense_ABND\", pv_expenses);",
+											"",
+											"// calculating  getsavings ABD",
+											"var total_sav_ABD = 0;",
+											"var savings_ABD = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].totalABD + data.familyTotalExpenses[i].primaryTotalPreMedicareCost + data.familyTotalExpenses[i].spouseTotalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expenses\": ' + expense + ', \"expenses_type\": \"Post-Retirement\"}';",
+											"    //console.log(\"fam_getSavings_ABD: \" + year_expense);",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    savings_ABD += year_expense;",
+											"    total_sav_ABD += expense;",
+											"}",
+											"savings_ABD += ']';",
+											" console.log(\"fam_sav_ABD: \" + total_sav_ABD);",
+											"postman.setEnvironmentVariable(\"fam_getSavings_ABD\", savings_ABD);",
+											"",
+											"// calculating getsavings ABCD",
+											"var total_sav_ABCD = 0;",
+											"var savings_ABCD = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].totalABCD + data.familyTotalExpenses[i].primaryTotalPreMedicareCost + data.familyTotalExpenses[i].spouseTotalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expenses\": ' + expense + ', \"expenses_type\": \"Post-Retirement\"}';",
+											"     //console.log(\"fam_getSav_ABCD: \" + year_expense);",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    savings_ABCD += year_expense;",
+											"    total_sav_ABCD += expense;",
+											"}",
+											"savings_ABCD += ']';",
+											" console.log(\"fam_sav_ABCD: \" + total_sav_ABCD);",
+											"postman.setEnvironmentVariable(\"fam_getSavings_ABCD\", savings_ABCD);",
+											"",
+											"// calculating getsavings ABFD",
+											"var total_sav_ABFD = 0;",
+											"var savings_ABFD = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].totalABFD + data.familyTotalExpenses[i].primaryTotalPreMedicareCost + data.familyTotalExpenses[i].spouseTotalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expenses\": ' + expense + ', \"expenses_type\": \"Post-Retirement\"}';",
+											"     //console.log(\"fam_getSav_ABFD: \" + year_expense);",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    savings_ABFD += year_expense;",
+											"    total_sav_ABFD += expense;",
+											"}",
+											"savings_ABFD += ']';",
+											"console.log(\"fam_sav_ABFD: \" + total_sav_ABFD);",
+											"postman.setEnvironmentVariable(\"fam_getSavings_ABFD\", savings_ABFD);",
+											"",
+											"// calculating getsavings ABGD",
+											"var total_sav_ABGD = 0;",
+											"var savings_ABGD = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].totalABGD + data.familyTotalExpenses[i].primaryTotalPreMedicareCost + data.familyTotalExpenses[i].spouseTotalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expenses\": ' + expense + ', \"expenses_type\": \"Post-Retirement\"}';",
+											"    //console.log(\"fam_getSav_ABGD: \" + year_expense);",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    savings_ABGD += year_expense;",
+											"    total_sav_ABGD += expense;",
+											"}",
+											"savings_ABGD += ']';",
+											"console.log(\"fam_sav_ABGD: \" + total_sav_ABGD);",
+											"postman.setEnvironmentVariable(\"fam_getSavings_ABGD\", savings_ABGD);",
+											"",
+											"// calculating getsavings ABND",
+											"var total_sav_ABND = 0;",
+											"var savings_ABND = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].totalABND + data.familyTotalExpenses[i].primaryTotalPreMedicareCost + data.familyTotalExpenses[i].spouseTotalPreMedicareCost);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expenses\": ' + expense + ', \"expenses_type\": \"Post-Retirement\"}';",
+											"    //console.log(\"fam_getSav_ABND: \" + year_expense);",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    savings_ABND += year_expense;",
+											"    total_sav_ABND += expense;",
+											"}",
+											"savings_ABND += ']';",
+											"console.log(\"fam_sav_ABND: \" + total_sav_ABND);",
+											"postman.setEnvironmentVariable(\"fam_getSavings_ABND\", savings_ABND);",
+											"",
+											"// calculating partB_partD_surcharge_primary",
+											"var total_sur_pri = 0;",
+											"var pv_exp_sur_pri = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].primaryPartBPremiumSurcharge + data.familyTotalExpenses[i].primaryPartDPremiumSurcharge);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_exp_sur_pri += year_expense;",
+											"    total_sur_pri += expense;",
+											"",
+											"}",
+											"pv_exp_sur_pri += ']';",
+											"console.log(\"fam_tot_pv_sur_pri: \" + total_sur_pri);",
+											"postman.setEnvironmentVariable(\"fam_tot_pv_sur_pri\", pv_exp_sur_pri);",
+											"",
+											"// calculating partB_partD_surcharge_spouse",
+											"var total_sur_spouse = 0;",
+											"var pv_exp_sur_spouse = '[';",
+											"for (var i = 0; i < data.familyTotalExpenses.length; i++) {",
+											"    var year = data.familyTotalExpenses[i].year;",
+											"    var expense = (data.familyTotalExpenses[i].spousePartBPremiumSurcharge + data.familyTotalExpenses[i].spousePartDPremiumSurcharge);",
+											"    var year_expense = '{ \"year\": ' + year + ', \"expense\": ' + expense + \"}\";",
+											"    if (i < (data.familyTotalExpenses.length - 1)) {",
+											"        year_expense += ',';",
+											"    }",
+											"    pv_exp_sur_spouse += year_expense;",
+											"    total_sur_spouse += expense;",
+											"",
+											"}",
+											"pv_exp_sur_spouse += ']';",
+											"console.log(\"fam_tot_pv_sur_spouse: \" + total_sur_spouse);",
+											"postman.setEnvironmentVariable(\"fam_tot_pv_sur_spouse\", pv_exp_sur_spouse);",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r      \"primaryBirthDate\": \"{{primaryBirthDate}}\",\r      \"primaryRetirementYear\": \"{{primaryRetirementYear}}\",\r      \"primaryLifeExpectancy\":{{primaryLifeExpectancy}},\r      \"primarySingleVsMultipleMagi\": \"{{primarySingleVsMultipleMagi}}\",\r      \"primaryMagiTierVsDollarAmount\": \"{{primaryMagiTierVsDollarAmount}}\",\r      \"primaryMagiTier\": {{primaryMagiTier}},\r      \"primaryTaxFilingStatus\": \"{{primaryTaxFilingStatus}}\",\r      \"primaryMagiDollarAmount\": {{primaryMagiDollarAmount}},\r\t  \"primaryHealthGrade\": {{primaryHealthGrade}},\r      \"primaryStateName\": \"{{primaryStateName}}\",\r      \"primaryBoughtPlanA\":\"{{primaryBoughtPlanA}}\",\r      \"primaryZipcode\":\"{{primaryZipcode}}\",\r      \"primaryReserveDaysUsed\": {{primaryReserveDaysUsed}},\r      \"primaryDental\":\"{{primaryDental}}\",\r      \"primaryDentalHealthGrade\": {{primaryDentalHealthGrade}},\r      \"primaryRetirementState\": \"{{primaryRetirementState}}\",\r      \"primaryPlanType\": \"{{primaryPlanType}}\",\r      \"primaryTobacco\":\"{{primaryTobacco}}\",\r       \"primaryFullYearDataForLifeExpectancyYear\": \"{{primaryFullYearDataForLifeExpectancyYear}}\",\r      \r       \"spouseIncluded\":\"{{spouseIncluded}}\",\r      \"spouseBirthDate\":\"{{spouseBirthDate}}\",\r      \"spouseRetirementYear\":\"{{spouseRetirementYear}}\",\r      \"spouseLifeExpectancy\":{{spouseLifeExpectancy}},\r      \"spouseSingleVsMultipleMagi\":\"{{spouseSingleVsMultipleMagi}}\",\r      \"spouseMagiTierVsDollarAmount\":\"{{spouseMagiTierVsDollarAmount}}\",\r      \"spouseMagiTier\":{{spouseMagiTier}},\r      \"spouseTaxFilingStatus\":\"{{spouseTaxFilingStatus}}\",\r      \"spouseMagiDollarAmount\":{{spouseMagiDollarAmount}},\r      \"spouseHealthGrade\":{{spouseHealthGrade}},\r      \"spouseStateName\":\"{{spouseStateName}}\",\r      \"spouseBoughtPlanA\":\"{{spouseBoughtPlanA}}\",\r      \"spouseZipcode\":\"{{spouseZipcode}}\",\r      \"spouseReserveDaysUsed\":{{spouseReserveDaysUsed}},\r      \"spouseDental\":\"{{spouseDental}}\",\r      \"spouseDentalHealthGrade\":{{spouseDentalHealthGrade}},\r      \"spouseRetirementState\": \"{{spouseRetirementState}}\",\r      \"spousePlanType\":\"{{spousePlanType}}\",\r      \"spouseTobacco\":\"{{spouseTobacco}}\",\r      \"spouseFullYearDataForLifeExpectancyYear\": \"{{spouseFullYearDataForLifeExpectancyYear}}\",\r \t \"primaryYearWiseMagiDetailList\":{{primaryYearWiseMagiDetailList}},\r      \"spouseYearWiseMagiDetailList\":{{spouseYearWiseMagiDetailList}}\r    }\r    \r    "
+								},
+								"url": {
+									"raw": "{{server}}/familyTotalExpensesR3",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"familyTotalExpensesR3"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "fam_exp_pv_R3",
+					"item": [
+						{
+							"name": "fam_exp_PV_ABD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_expense_ABD}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_exp_PV_ABFD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_expense_ABFD}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_exp_PV_ABCD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_expense_ABCD}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_exp_PV_ABGD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_expense_ABGD}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\":  {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_exp_PV_ABND_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_expense_ABND}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_pv_partB_partD_sur_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c0083443-af31-493c-9df5-a6387902bee0",
+										"exec": [
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_pv_sur_pri}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_exp_PV_ABD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8edba3e6-8736-45a3-889a-e2e08e578702",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_expense_ABD}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_exp_PV_ABCD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1940bf11-299e-48fc-80a1-c30baf61391c",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_expense_ABCD}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_exp_PV_ABFD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d10213d7-a243-4c4c-88cc-ecf81037ec7c",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_expense_ABFD}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_exp_PV_ABGD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2971740b-1830-4fb3-8677-834b91004d24",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_expense_ABGD}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\":  {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_exp_PV_ABND_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a82578e2-9aed-4059-a611-d08661be9f55",
+										"exec": [
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_expense_ABND}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fam_pv_partB_partD_sur_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3382eaa0-df62-4061-ad67-73f6adeec324",
+										"exec": [
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{from_year}},\n  \"toYear\": {{to_year}},\n  \"expenses\": {{fam_tot_pv_sur_spouse}},\n  \n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "fam_get_sav_R3",
+					"item": [
+						{
+							"name": "famTot_getSav_ABD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5c95de3-aaaa-463b-9cef-5eac03222969",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "485d944b-6ab7-46e8-a039-a9b44717ee83",
+										"exec": [
+											"/*[\r",
+											"    {\r",
+											"      \"year\": 2051,\r",
+											"      \"expenses\": 52203,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2052,\r",
+											"      \"expenses\": 57822,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2053,\r",
+											"      \"expenses\": 56945,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2054,\r",
+											"      \"expenses\": 59499,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2055,\r",
+											"      \"expenses\": 62182,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2056,\r",
+											"      \"expenses\": 65006,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2057,\r",
+											"      \"expenses\": 68057,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2058,\r",
+											"      \"expenses\": 66126,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2059,\r",
+											"      \"expenses\": 95586,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2060,\r",
+											"      \"expenses\": 91775,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2061,\r",
+											"      \"expenses\": 80358,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2062,\r",
+											"      \"expenses\": 82678,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2063,\r",
+											"      \"expenses\": 83868,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2064,\r",
+											"      \"expenses\": 93985,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2065,\r",
+											"      \"expenses\": 98467,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2066,\r",
+											"      \"expenses\": 103185,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2067,\r",
+											"      \"expenses\": 108267,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2068,\r",
+											"      \"expenses\": 113505,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2069,\r",
+											"      \"expenses\": 119025,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    },\r",
+											"    {\r",
+											"      \"year\": 2070,\r",
+											"      \"expenses\": 124841,\r",
+											"      \"expenses_type\": \"Post-Retirement\"\r",
+											"    }\r",
+											"  ]*/"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\": {{fam_getSavings_ABD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_getSav_ABFD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5c95de3-aaaa-463b-9cef-5eac03222969",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "485d944b-6ab7-46e8-a039-a9b44717ee83",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\": {{fam_getSavings_ABFD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_getSav_ABCD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5c95de3-aaaa-463b-9cef-5eac03222969",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "485d944b-6ab7-46e8-a039-a9b44717ee83",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\": {{fam_getSavings_ABCD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_getSav_ABGD_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5c95de3-aaaa-463b-9cef-5eac03222969",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "485d944b-6ab7-46e8-a039-a9b44717ee83",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\": {{fam_getSavings_ABGD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_getSav_ABND_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c5c95de3-aaaa-463b-9cef-5eac03222969",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "485d944b-6ab7-46e8-a039-a9b44717ee83",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\": {{fam_getSavings_ABND}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_getSav_ABD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5c8ec08e-b6b3-4831-ab5c-d6c3d033835c",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1142025e-df70-4596-9c55-1edc3e61ce5a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\": {{fam_getSavings_ABD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_getSavi_ABCD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f7c3a126-3eb3-47c9-82c7-d4e6f42f70c6",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0c1ab907-5498-4015-a4e7-9d52d12e6852",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\": {{fam_getSavings_ABCD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_getSav_ABFD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "56334c99-467e-44b1-80d7-307f46699787",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "103cd853-0460-4ab9-be4c-32a83b6c5a70",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\": {{fam_getSavings_ABFD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_getSav_ABGD_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4bbed5a9-27aa-41a1-8cc6-728492fbd82d",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "3aad9dbe-85ca-4571-8533-14e47219b137",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\": {{fam_getSavings_ABGD}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_getSav_ABND_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d6c30e2b-8ce6-44e2-9f91-79089a00d4d6",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "cd494422-682c-49e5-94d7-7bd112df9cf3",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA=="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expenses\": {{fam_getSavings_ABND}},\r\n  \"initalSavings\": {{initalSavings}},\r\n  \"duration\": {{duration}},\r\n  \"ror\": {{ror}},\r\n  \"term\": \"L\",\r\n  \"levelOfProtection\": {{levelOfProtection}}\r\n}"
+								},
+								"url": {
+									"raw": "{{server}}/getSavings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"getSavings"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "fam_LTC_R4",
+					"item": [
+						{
+							"name": "famTot_LTCR4_pri",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "679724a2-7ab9-4c7a-b4f8-946fc501a3ab",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "e5c076f3-2eee-41f9-88a1-fea2587b9d11",
+										"exec": [
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic QWR2aWNlbnRGUFNlcnZpY2VVc2VyOkFkdmljZW50UEBzNXcwcmQ="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \n\"age\": {{primary_age}},\n\"transactionTypeFlag\":\"{{transactionTypeFlag}}\",\n\"zipcode\":{{primaryZipcode}},\n\"state\":\"{{primaryStateName}}\",\n\"region\": \"{{region}}\",\n\"pvAsOfYear\": {{from_year}},\n\"healthProfile\": {{primaryHealthGrade}},\n\"gender\": \"{{gender}}\",\n\"lifeExpectancy\": {{primaryLifeExpectancy}},\n\"currentLifeStyleExpenses\":  {{currentLifeStyleExpenses}},\n\n\"numberOfAdultDayHealthCareLTCYears\":{{numberOfAdultDayHealthCareLTCYears}},\n\"numberOfHomeCareLTCYears\": {{numberOfHomeCareLTCYears}},\n\"numberOfAssistedCareLTCYears\":{{numberOfAssistedCareLTCYears}},\n\"numberOfNursingCareLTCYears\":{{numberOfNursingCareLTCYears}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/longTermCareR4",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"longTermCareR4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_exp_PV_adultcare_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{primary_ac_from_year}},\n  \"toYear\": {{primary_ac_to_year}},\n  \"expenses\": {{pv_expenses_LTC_adultcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_exp_PV_homecare_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{primary_hc_from_year}},\n  \"toYear\": {{primary_hc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_homecare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_exp_PV_assistedcare_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{primary_sc_from_year}},\n  \"toYear\":{{primary_sc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_assistedcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_exp_PV_nursingcare_pri",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8459ab43-aad3-4e13-af6f-280b2be3c3d0",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{primary_nc_from_year}},\n  \"toYear\": {{primary_nc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_nursingcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_exp_PV_adultcare_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{spouse_ac_from_year}},\n  \"toYear\": {{spouse_ac_to_year}},\n  \"expenses\": {{pv_expenses_LTC_adultcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_exp_PV_homecare_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{spouse_hc_from_year}},\n  \"toYear\": {{spouse_hc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_homecare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_exp_PV_assistedcare_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69451861-2fc9-4f9a-9e76-3a31a4e11051",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{spouse_sc_from_year}},\n  \"toYear\":{{spouse_sc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_assistedcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "famTot_exp_PV_nursingcare_spouse",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8459ab43-aad3-4e13-af6f-280b2be3c3d0",
+										"exec": [
+											"//setting the global variables for individual and familytotal for primary and spouse",
+											"pm.globals.unset(\"primaryBirthDate\");",
+											"pm.globals.unset(\"primaryRetirementYear\");",
+											"pm.globals.unset(\"primaryLifeExpectancy\");",
+											"pm.globals.unset(\"primaryTaxFilingStatus\");",
+											"pm.globals.unset(\"primaryHealthGrade\");",
+											"pm.globals.unset(\"primaryStateName\");",
+											"pm.globals.unset(\"primaryPlanType\");",
+											"pm.globals.unset(\"primaryDentalHealthGrade\");",
+											"pm.globals.unset(\"primaryRetirementState\");",
+											"pm.globals.unset(\"primarySingleVsMultipleMagi\");",
+											"pm.globals.unset(\"primaryMagiTierVsDollarAmount\");",
+											"pm.globals.unset(\"primaryMagiTier\");",
+											"pm.globals.unset(\"primaryMagiDollarAmount\");",
+											"pm.globals.unset(\"primaryBoughtPlanA\");",
+											"pm.globals.unset(\"primaryReserveDaysUsed\");",
+											"pm.globals.unset(\"primaryDental\");",
+											"pm.globals.unset(\"primaryTobacco\");",
+											"pm.globals.unset(\"primaryZipcode\");",
+											"pm.globals.unset(\"primaryFullYearDataForLifeExpectancyYear\");",
+											"pm.globals.unset(\"primaryTaxFilingStatus\");",
+											"pm.globals.unset(\"primaryYearWiseMagiDetailList\");",
+											"pm.globals.unset(\"spouseIncluded\");",
+											"pm.globals.unset(\"spouseBirthDate\");",
+											"pm.globals.unset(\"spouseRetirementYear\");",
+											"pm.globals.unset(\"spouseLifeExpectancy\");",
+											"pm.globals.unset(\"spouseSingleVsMultipleMagi\");",
+											"pm.globals.unset(\"spouseMagiTierVsDollarAmount\");",
+											"pm.globals.unset(\"spouseMagiTier\");",
+											"pm.globals.unset(\"spouseTaxFilingStatus\");",
+											"pm.globals.unset(\"spouseMagiDollarAmount\");",
+											"pm.globals.unset(\"spouseHealthGrade\");",
+											"pm.globals.unset(\"spouseStateName\");",
+											"pm.globals.unset(\"spouseBoughtPlanA\");",
+											"pm.globals.unset(\"spouseReserveDaysUsed\");",
+											"pm.globals.unset(\"spouseDental\");",
+											"pm.globals.unset(\"spouseDentalHealthGrade\");",
+											"pm.globals.unset(\"spousePlanType\");",
+											"pm.globals.unset(\"spouseTobacco\");",
+											"pm.globals.unset(\"spouseRetirementState\");",
+											"pm.globals.unset(\"spouseYearWiseMagiDetailList\");",
+											"pm.globals.unset(\"spouseZipcode\");",
+											"pm.globals.unset(\"spouseFullYearDataForLifeExpectancyYear\");",
+											"",
+											"//setting the gobal variables for expense present value",
+											"pm.globals.unset(\"pvAsOnYear3\");",
+											"pm.globals.unset(\"discount\");",
+											"pm.globals.unset(\"rateOfReturn1\");",
+											"pm.globals.unset(\"rateOfReturn2\");",
+											"pm.globals.unset(\"rateOfReturn3\");",
+											"pm.globals.unset(\"rateOfReturn4\");",
+											"",
+											"//setting global variable for getsavings(fund with investment)",
+											"pm.globals.unset(\"initalSavings\");",
+											"pm.globals.unset(\"duration\");",
+											"pm.globals.unset(\"ror\");",
+											"//pm.globals.set(\"term\",'[]');",
+											"pm.globals.unset(\"levelOfProtection\");",
+											"",
+											"//globalvariables for LTCR4",
+											"pm.globals.unset(\"transactionTypeFlag\");",
+											"pm.globals.unset(\"region\");",
+											"pm.globals.unset(\"gender\");",
+											"pm.globals.unset(\"currentLifeStyleExpenses\");",
+											"pm.globals.unset(\"numberOfAdultDayHealthCareLTCYears\");",
+											"pm.globals.unset(\"numberOfHomeCareLTCYears\");",
+											"pm.globals.unset(\"numberOfAssistedCareLTCYears\");",
+											"pm.globals.unset(\"numberOfNursingCareLTCYears\");",
+											"pm.globals.unset(\"from_year\");",
+											"pm.globals.unset(\"to_year\");",
+											"// unsetting LTC variables primary and spouse",
+											"pm.globals.unset(\"primary_ac_from_year\");",
+											"pm.globals.unset(\"primary_ac_to_year\");",
+											"pm.globals.unset(\"primary_hc_from_year\");",
+											"pm.globals.unset(\"primary_hc_to_year\");",
+											"pm.globals.unset(\"primary_sc_from_year\");",
+											"pm.globals.unset(\"primary_sc_to_year\");",
+											"pm.globals.unset(\"primary_nc_from_year\");",
+											"pm.globals.unset(\"primary_nc_to_year\");",
+											"pm.globals.unset(\"spouse_ac_from_year\");",
+											"pm.globals.unset(\"spouse_ac_to_year\");",
+											"pm.globals.unset(\"spouse_hc_from_year\");",
+											"pm.globals.unset(\"spouse_hc_to_year\");",
+											"pm.globals.unset(\"spouse_sc_from_year\");",
+											"pm.globals.unset(\"spouse_sc_to_year\");",
+											"pm.globals.unset(\"spouse_nc_from_year\");",
+											"pm.globals.unset(\"spouse_nc_to_year\");",
+											"// unsetting age and current year",
+											"pm.globals.unset(\"current_year\");",
+											"pm.globals.unset(\"primary_age\");",
+											"pm.globals.unset(\"spouse_age\");",
+											"",
+											"// unsetting the envt variables for indi total ABD,ABCD,ABFD,ABGD and ABND",
+											"pm.environment.unset(\"ind_tot_exp_ABD\");",
+											"pm.environment.unset(\"ind_tot_exp_ABCD\");",
+											"pm.environment.unset(\"ind_tot_exp_ABFD\");",
+											"pm.environment.unset(\"ind_tot_exp_ABGD\");",
+											"pm.environment.unset(\"ind_tot_exp_ABND\");",
+											"// unsetting indi total getsavings variables",
+											"pm.environment.unset(\"ind_getSavings_ABD\");",
+											"pm.environment.unset(\"ind_getSavings_ABCD\");",
+											"pm.environment.unset(\"ind_getSavings_ABFD\");",
+											"pm.environment.unset(\"ind_getSavings_ABGD\");",
+											"pm.environment.unset(\"ind_getSavings_ABND\");",
+											"",
+											"// unsetting the envt variables",
+											"pm.environment.unset(\"fam_tot_expense_ABD\");",
+											"pm.environment.unset(\"fam_tot_expense_ABCD\");",
+											"pm.environment.unset(\"fam_tot_expense_ABFD\");",
+											"pm.environment.unset(\"fam_tot_expense_ABGD\");",
+											"pm.environment.unset(\"fam_tot_expense_ABND\");",
+											"pm.environment.unset(\"fam_getSavings_ABD\");",
+											"pm.environment.unset(\"fam_getSavings_ABCD\");",
+											"pm.environment.unset(\"fam_getSavings_ABFD\");",
+											"pm.environment.unset(\"fam_getSavings_ABGD\");",
+											"pm.environment.unset(\"fam_getSavings_ABND\");",
+											"pm.environment.unset(\"fam_tot_pv_sur_pri\");",
+											"pm.environment.unset(\"fam_tot_pv_sur_spouse\");",
+											"pm.environment.unset(\"pv_expenses_LTC_adultcare\");",
+											"pm.environment.unset(\"pv_expenses_LTC_homecare\");",
+											"pm.environment.unset(\"pv_expenses_LTC_assistedcare\");",
+											"pm.environment.unset(\"pv_expenses_LTC_nursingcare\");",
+											"// unsetting surcharge",
+											"pm.environment.unset(\"ind_tot_exp_surcharge\");",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2262e372-e8f5-471a-b422-2dee7b303fd6",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "FinancialPlannerP@ssw0rd",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "FinancialPlannerServiceUser",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic RmluYW5jaWFsUGxhbm5lclNlcnZpY2VVc2VyOkZpbmFuY2lhbFBsYW5uZXJQQHNzdzByZA==",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromYear\": {{spouse_nc_from_year}},\n  \"toYear\": {{spouse_nc_to_year}},\n  \"expenses\": {{pv_expenses_LTC_nursingcare}},\n  \"presentValueYears\": {\n  \"pvAsOnYear1\": {{current_year}},\n  \"pvAsOnYear2\": {{from_year}},\n  \"pvAsOnYear3\": {{pvAsOnYear3}}\n  },\n  \"discount\": {{discount}},\n  \"rateOfReturns\": {\n  \"rateOfReturn1\": {{rateOfReturn1}},\n  \"rateOfReturn2\": {{rateOfReturn2}},\n  \"rateOfReturn3\": {{rateOfReturn3}},\n  \"rateOfReturn4\": {{rateOfReturn4}}\n  }\n}"
+								},
+								"url": {
+									"raw": "{{server}}/expensesPresentValue",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"expensesPresentValue"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fbd5ab1e-be55-4833-a337-c17156f42472",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c441e85d-b8e5-4f95-a877-d94db99cfad6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
